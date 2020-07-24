@@ -23,28 +23,43 @@ class SearchAppointments extends Component{
               </button>
 
               <div className="sort-menu dropdown-menu dropdown-menu-right">
-                <button className="sort-by dropdown-item"
+                <button className={
+                    'sort-by dropdown-item ' +
+                    (this.props.orderBy === 'petName' ? 'active' : '')
+                }
                         // @ts-ignore
                         href="#">
                   Pet Name
                 </button>
-                <button className="sort-by dropdown-item"
+                <button className={
+                    'sort-by dropdown-item ' +
+                    (this.props.orderBy === 'aptDate' ? 'active' : '')
+                }
                         // @ts-ignore
                         href="#">
                   Date
                 </button>
-                <button className="sort-by dropdown-item"
+                <button className={
+                    'sort-by dropdown-item ' +
+                    (this.props.orderBy === 'ownerName' ? 'active' : '')
+                }
                         // @ts-ignore
                         href="#">
                   Owner
                 </button>
                 <div role="separator" className="dropdown-divider" />
-                <button className="sort-by dropdown-item"
+                <button className={
+                    'sort-by dropdown-item ' +
+                    (this.props.orderDir === 'asc' ? 'active' : '')
+                }
                         // @ts-ignore
                         href="#">
                   Asc
                 </button>
-                <button className="sort-by dropdown-item"
+                <button className={
+                    'sort-by dropdown-item ' +
+                    (this.props.orderDir === 'desc' ? 'active' : '')
+                }
                         // @ts-ignore
                         href="#">
                   Desc
