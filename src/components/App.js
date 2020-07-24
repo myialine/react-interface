@@ -9,7 +9,8 @@ class App extends Component {
   constructor(){
     super(); //necessary when using inheritance
     this.state = {
-      myAppointments: [] // initialize an empty array
+      myAppointments: [], // initialize an empty array
+      lastIndex: 0
     }
   }
 
@@ -18,6 +19,8 @@ class App extends Component {
     .then(response => response.json()) // this converts the data to json
     .then(result =>{
       const apts = result.map(item => { //this goes through each item on the data file
+        item.aptId =  this.state.lastIndex;
+        this.setState({ lastIndex: this.state.lastIndex + 1}) //this is to create an ID while iterating on the list component
         return item;
       })
       this.setState({
