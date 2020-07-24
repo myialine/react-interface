@@ -14,8 +14,15 @@ class App extends Component {
       formDisplay: false, // initialize an empty array
       lastIndex: 0
     }
-    this.deleteAppointment = this.deleteAppointment.bind(this);
+    this.deleteAppointment = this.deleteAppointment.bind(this); //sets the value of "this" for permanence reasons
+    this.toggleForm = this.toggleForm.bind(this);
     //optional? Aparently the method did not yield and error
+  }
+
+  toggleForm(){
+    this.setState({
+      formDisplay: !this.state.formDisplay // sets it to the opposite of the current state
+    })
   }
 
   deleteAppointment(apt){
@@ -49,6 +56,7 @@ class App extends Component {
             <div className="container">
               <AddAppointments
                 formDisplay={this.state.formDisplay} //this is tracking the state of formDisplay
+                toggleForm={this.toggleForm}
               />
               <SearchAppointments />
               <ListAppointments
