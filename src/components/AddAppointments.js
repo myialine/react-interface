@@ -14,6 +14,29 @@ class AddAppointments extends Component{
             aptNotes: ''
         }
         this.handleChange =  this.handleChange.bind(this);
+        this.handleAdd = this.handleAdd.bind(this);
+    }
+
+    handleAdd(e){
+        e.preventDefault(); // prevents the form from submit and reload the page
+        let tempApt ={
+            petName: this.state.petName,
+            ownerName: this.state.ownerName,
+            aptDate: this.state.aptDate + ' ' + this.state.aptTime, //because date and time are combined on the data files
+            aptNotes: this.state.aptNotes
+        };
+
+        this.props.addAppointment(tempApt);
+
+        this.setState({
+            petName: '',
+            ownerName: '',
+            aptDate: '',
+            aptTime: '',
+            aptNotes: ''
+        });
+
+        this.props.toggleForm();
     }
 
     handleChange(e){ // this method handles the change in input fields (form)
@@ -37,7 +60,11 @@ class AddAppointments extends Component{
               <FaPlus /> Add Appointment
             </div>
             <div className="card-body">
-              <form id="aptForm" noValidate>
+              <form
+                id="aptForm"
+                noValidate
+                onSubmit={this.handleAdd}
+                >
                 <div className="form-group form-row">
                   <label
                     className="col-md-2 col-form-label text-md-right"
@@ -76,7 +103,6 @@ class AddAppointments extends Component{
                     />
                   </div>
                 </div>
-  
                 <div className="form-group form-row">
                   <label
                     className="col-md-2 col-form-label text-md-right"

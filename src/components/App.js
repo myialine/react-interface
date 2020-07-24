@@ -16,6 +16,7 @@ class App extends Component {
     }
     this.deleteAppointment = this.deleteAppointment.bind(this); //sets the value of "this" for permanence reasons
     this.toggleForm = this.toggleForm.bind(this);
+    this.addAppointment = this.addAppointment.bind(this);
     //optional? Aparently the method did not yield and error
   }
 
@@ -23,6 +24,17 @@ class App extends Component {
     this.setState({
       formDisplay: !this.state.formDisplay // sets it to the opposite of the current state
     })
+  }
+
+  addAppointment(apt){
+    let tempApts = this.state.myAppointments; //assign the variable to the new data
+    apt.aptId = this.state.lastIndex; // give it a new id based on lastIndex
+    tempApts.unshift(apt); //lodash's method to add something to the start of an array
+    this.setState({
+      myAppointments: tempApts,
+      lastIndex: this.state.lastIndex + 1
+    });
+
   }
 
   deleteAppointment(apt){
@@ -57,6 +69,7 @@ class App extends Component {
               <AddAppointments
                 formDisplay={this.state.formDisplay} //this is tracking the state of formDisplay
                 toggleForm={this.toggleForm}
+                addAppointment = {this.addAppointment}
               />
               <SearchAppointments />
               <ListAppointments
