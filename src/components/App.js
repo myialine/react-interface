@@ -1,5 +1,8 @@
 import React from 'react';
 import '../css/App.css';
+import AddAppointments from './AddAppointments'
+import SearchAppointments from './SearchAppointments';
+import ListAppointments from './ListAppointments';
 
 function App() {
   return (
@@ -8,9 +11,9 @@ function App() {
         <div className="row">
           <div className="col-md-12 bg-white">
             <div className="container">
-              <div>Add appointments</div>
-              <div>Search appointments</div>
-              <div>List appointments</div>
+              <AddAppointments />
+              <SearchAppointments />
+              <ListAppointments />
             </div>
           </div>
         </div>
