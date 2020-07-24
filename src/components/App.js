@@ -3,15 +3,26 @@ import '../css/App.css';
 import AddAppointments from './AddAppointments'
 import SearchAppointments from './SearchAppointments';
 import ListAppointments from './ListAppointments';
-import { result } from 'lodash';
+import { without } from 'lodash';
 
 class App extends Component {
   constructor(){
+    // @ts-ignore
     super(); //necessary when using inheritance
     this.state = {
       myAppointments: [], // initialize an empty array
       lastIndex: 0
     }
+    this.deleteAppointment = this.deleteAppointment.bind(this);
+    //optional? Aparently the method did not yield and error
+  }
+
+  deleteAppointment(apt){
+    let tempApts = this.state.myAppointments;
+    tempApts = without(tempApts, apt); //lodash in action: returns the record without a given object
+    this.setState({
+      myAppointments: tempApts
+    });
   }
 
   componentDidMount() {
@@ -37,7 +48,10 @@ class App extends Component {
             <div className="container">
               <AddAppointments />
               <SearchAppointments />
-              <ListAppointments appointments={this.state.myAppointments}/>
+              <ListAppointments 
+              appointments={this.state.myAppointments}
+              deleteAppointment={this.deleteAppointment}
+              />
             </div>
           </div>
         </div>
