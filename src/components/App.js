@@ -10,7 +10,8 @@ class App extends Component {
     // @ts-ignore
     super(); //necessary when using inheritance
     this.state = {
-      myAppointments: [], // initialize an empty array
+      myAppointments: [],
+      formDisplay: false, // initialize an empty array
       lastIndex: 0
     }
     this.deleteAppointment = this.deleteAppointment.bind(this);
@@ -46,9 +47,11 @@ class App extends Component {
         <div className="row">
           <div className="col-md-12 bg-white">
             <div className="container">
-              <AddAppointments />
+              <AddAppointments
+                formDisplay={this.state.formDisplay} //this is tracking the state of formDisplay
+              />
               <SearchAppointments />
-              <ListAppointments 
+              <ListAppointments
               appointments={this.state.myAppointments}
               deleteAppointment={this.deleteAppointment}
               />
