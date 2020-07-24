@@ -4,6 +4,7 @@ import AddAppointments from './AddAppointments'
 import SearchAppointments from './SearchAppointments';
 import ListAppointments from './ListAppointments';
 import { without } from 'lodash';
+import { FaWizardsOfTheCoast } from 'react-icons/fa';
 
 class App extends Component {
   constructor(){
@@ -12,6 +13,8 @@ class App extends Component {
     this.state = {
       myAppointments: [],
       formDisplay: false, // initialize an empty array
+      ordeyBy: 'petName',
+      orderDir: 'asc',
       lastIndex: 0
     }
     this.deleteAppointment = this.deleteAppointment.bind(this); //sets the value of "this" for permanence reasons
@@ -61,7 +64,27 @@ class App extends Component {
   }
 
   render() {
-    return(<main className="page bg-white" id="petratings">
+
+    let order;
+    let filteredApts = this.state.myAppointments;
+    if(this.state.orderDir === 'asc'){
+      order = 1; //if order is ascending, order = 1
+    } else {     //else order is - 1
+      order = -1; //this will be used as a multiplier
+    }
+
+    filteredApts.sort((a,b) => {
+      if(a[this.state.ordeyBy].toLowerCase() <
+         b[this.state.ordeyBy].toLowerCase())
+      {
+        return -1 * order
+      } else {
+        return 1 * order
+      }
+    })
+
+    return( //displays the template
+    <main className="page bg-white" id="petratings">
       <div className="container">
         <div className="row">
           <div className="col-md-12 bg-white">
@@ -73,7 +96,7 @@ class App extends Component {
               />
               <SearchAppointments />
               <ListAppointments
-              appointments={this.state.myAppointments}
+              appointments={filteredApts}
               deleteAppointment={this.deleteAppointment}
               />
             </div>
