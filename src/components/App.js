@@ -21,13 +21,19 @@ class App extends Component {
     this.toggleForm = this.toggleForm.bind(this);
     this.addAppointment = this.addAppointment.bind(this);
     this.changeOrder = this.changeOrder.bind(this);
-    //optional? Aparently the method did not yield and error
+    this.searchApts = this.searchApts.bind(this);
   }
 
   toggleForm(){
     this.setState({
       formDisplay: !this.state.formDisplay // sets it to the opposite of the current state
     });
+  }
+
+  searchApts(query){
+    this.setState({
+      queryText: query
+    })
   }
 
   changeOrder(order, dir){
@@ -117,6 +123,7 @@ class App extends Component {
                 orderBy ={this.state.orderBy}
                 orderDir={this.state.orderDir}
                 changeOrder={this.changeOrder}
+                searchApts={this.searchApts}
               />
               <ListAppointments
               appointments={filteredApts}
