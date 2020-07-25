@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and is based on the Likedin course React.js: Building and interface by Ray Villalobos.
 
 ## Available Scripts
 
