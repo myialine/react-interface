@@ -4,7 +4,6 @@ import AddAppointments from './AddAppointments'
 import SearchAppointments from './SearchAppointments';
 import ListAppointments from './ListAppointments';
 import { without } from 'lodash';
-import { FaWizardsOfTheCoast } from 'react-icons/fa';
 
 class App extends Component {
   constructor(){
@@ -13,20 +12,29 @@ class App extends Component {
     this.state = {
       myAppointments: [],
       formDisplay: false, // initialize an empty array
-      ordeyBy: 'petName',
+      orderBy: 'petName',
       orderDir: 'asc',
+      queryText: '',
       lastIndex: 0
     }
     this.deleteAppointment = this.deleteAppointment.bind(this); //sets the value of "this" for permanence reasons
     this.toggleForm = this.toggleForm.bind(this);
     this.addAppointment = this.addAppointment.bind(this);
+    this.changeOrder = this.changeOrder.bind(this);
     //optional? Aparently the method did not yield and error
   }
 
   toggleForm(){
     this.setState({
       formDisplay: !this.state.formDisplay // sets it to the opposite of the current state
-    })
+    });
+  }
+
+  changeOrder(order, dir){
+    this.setState({
+      orderBy: order,
+      orderDir: dir
+    });
   }
 
   addAppointment(apt){
@@ -73,7 +81,7 @@ class App extends Component {
       order = -1; //this will be used as a multiplier
     }
 
-    filteredApts.sort((a,b) => {
+    filteredApts = filteredApts.sort((a,b) => {
       if(a[this.state.ordeyBy].toLowerCase() <
          b[this.state.ordeyBy].toLowerCase())
       {
@@ -81,6 +89,17 @@ class App extends Component {
       } else {
         return 1 * order
       }
+    }).filter(eachItem => {
+      return(
+        eachItem['petName']
+        .toLowerCase()
+        .includes(this.state.queryText.toLowerCase()) ||
+        eachItem['ownerName']
+        .toLowerCase()
+        .includes(this.state.queryText.toLowerCase()) ||
+        eachItem['aptNotes']
+        .toLowerCase()
+        .includes(this.state.queryText.toLowerCase()));
     })
 
     return( //displays the template
@@ -97,6 +116,7 @@ class App extends Component {
               <SearchAppointments
                 orderBy ={this.state.orderBy}
                 orderDir={this.state.orderDir}
+                changeOrder={this.changeOrder}
               />
               <ListAppointments
               appointments={filteredApts}
